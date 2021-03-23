@@ -27,6 +27,36 @@ describe("TodoItem.vue", () => {
       },
     });
 
-    expect(wrapper.classes()).toContain("line-through");
+    expect(wrapper.find(".line-through").exists()).toBe(true);
+  });
+
+  it("should emit toggle event when checkbox is clicked", async () => {
+    const wrapper = mount(TodoItem, {
+      props: {
+        todo: {
+          id: new Date().getTime(),
+          text: "Procrastinate to learn React",
+          completed: true,
+        },
+      },
+    });
+
+    wrapper.get('[type="checkbox"]').trigger("click");
+    expect(wrapper.emitted("toggle")).toHaveLength(1);
+  });
+
+  it("should emit delete event when checkbox is clicked", async () => {
+    const wrapper = mount(TodoItem, {
+      props: {
+        todo: {
+          id: new Date().getTime(),
+          text: "Procrastinate to learn React",
+          completed: true,
+        },
+      },
+    });
+
+    wrapper.get("button").trigger("click");
+    expect(wrapper.emitted("delete")).toHaveLength(1);
   });
 });

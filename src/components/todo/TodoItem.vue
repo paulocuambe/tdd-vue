@@ -1,8 +1,14 @@
 <template>
-  <p :class="{ 'line-through': todo.completed }">{{ todo.text }}</p>
+  <div>
+    <input type="checkbox" v-model="todoItem.completed" @click="$emit('toggle')" />
+    <p :class="{ 'line-through': todoItem.completed }">{{ todoItem.text }}</p>
+    <button @click="$emit('delete')">Delete</button>
+  </div>
 </template>
 
 <script>
+import { toRefs } from "vue";
+
 export default {
   props: {
     todo: {
@@ -10,7 +16,14 @@ export default {
       required: true,
     },
   },
-  setup() {},
+
+  emits: ["toggle", "delete"],
+  setup(props) {
+    const { todo: todoItem } = toRefs(props);
+    return {
+      todoItem,
+    };
+  },
 };
 </script>
 
