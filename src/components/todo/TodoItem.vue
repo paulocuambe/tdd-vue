@@ -1,6 +1,7 @@
 <template>
-  <div>{{ todo.text }}</div>
+  <p :class="{ 'line-through': todo.completed }">{{ todo.text }}</p>
 </template>
+
 <script>
 export default {
   props: {
@@ -12,3 +13,9 @@ export default {
   setup() {},
 };
 </script>
+
+<style scoped>
+.line-through {
+  text-decoration: line-through;
+}
+</style>
