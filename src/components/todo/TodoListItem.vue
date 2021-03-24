@@ -74,7 +74,6 @@ export default {
         }
         return todo;
       });
-      console.log(state.todos);
     };
 
     return {
