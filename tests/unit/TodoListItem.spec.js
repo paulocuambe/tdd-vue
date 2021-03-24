@@ -70,4 +70,34 @@ describe("TodoList.vue", () => {
     expect(wrapper.find("#todoErrors").text()).toContain("That item is already on the list");
     expect(wrapper.findAll(".todo")).toHaveLength(1);
   });
+
+  it("deletes todo", async () => {
+    const wrapper = mount(TodoListItem, {
+      props: {
+        todoList: [],
+      },
+    });
+
+    await wrapper.get('[name="new_todo"]').setValue("Learn Vue");
+    await wrapper.get("#submitTodo").trigger("click");
+    expect(wrapper.findAll(".todo")).toHaveLength(1);
+
+    await wrapper.find(".btn--delete__todo").trigger("click");
+    expect(wrapper.findAll(".todo")).toHaveLength(0);
+  });
+
+  it("deletes todo", async () => {
+    const wrapper = mount(TodoListItem, {
+      props: {
+        todoList: [],
+      },
+    });
+
+    await wrapper.get('[name="new_todo"]').setValue("Learn Vue");
+    await wrapper.get("#submitTodo").trigger("click");
+    expect(wrapper.findAll(".todo")).toHaveLength(1);
+
+    await wrapper.find(".btn--delete__todo").trigger("click");
+    expect(wrapper.findAll(".todo")).toHaveLength(0);
+  });
 });

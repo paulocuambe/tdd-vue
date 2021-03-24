@@ -9,7 +9,13 @@
   </div>
 
   <div v-if="todos.length > 0">
-    <todo-item v-for="todo in todos" :key="todo.id" :todo="todo" />
+    <todo-item
+      v-for="todo in todos"
+      :key="todo.id"
+      :todo="todo"
+      @toggle="handleToggleTodo(todo.id)"
+      @delete="handleDeleteTodo(todo.id)"
+    />
   </div>
 
   <h2 v-else class="todo-list__empty-message">Congrats. You've completed all your tasks.</h2>
@@ -37,7 +43,7 @@ export default {
 
     const validateInput = () => {
       state.errors = [];
-      if (state.todos.some((todo) => todo.text === state.newTodo)) {
+      if (state.todos.some((todo) => todo.text === state.newTodo.trim())) {
         state.errors.push("That item is already on the list");
       }
       if (!state.newTodo) {
@@ -49,17 +55,33 @@ export default {
       validateInput();
       if (state.errors.length === 0) {
         state.todos.push({
-          id: new Date().getTime(),
-          text: state.newTodo,
+          id: new Date().getTime() + Math.ceil(Math.random() * 100),
+          text: state.newTodo.trim(),
           completed: false,
         });
         state.newTodo = "";
       }
     };
 
+    const handleDeleteTodo = (id) => {
+      state.todos = state.todos.filter((todo) => todo.id !== id);
+    };
+
+    const handleToggleTodo = (id) => {
+      state.todos = state.todos.map((todo) => {
+        if (todo.id === id) {
+          todo.completed = !todo.completed;
+        }
+        return todo;
+      });
+      console.log(state.todos);
+    };
+
     return {
       ...toRefs(state),
       handleSubmit,
+      handleDeleteTodo,
+      handleToggleTodo,
     };
   },
 };
