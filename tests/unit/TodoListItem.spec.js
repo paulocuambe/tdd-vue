@@ -1,103 +1,62 @@
 import { mount } from "@vue/test-utils";
 import TodoListItem from "@/components/todo/TodoListItem.vue";
 
-describe("TodoList.vue", () => {
-  it("renders a list of todos", () => {
+describe("TodoItem.vue", () => {
+  it("should render todo.text when passed", async () => {
     const wrapper = mount(TodoListItem, {
       props: {
-        todoList: [
-          { id: new Date().getTime(), text: "Item 1", completed: false },
-          { id: new Date().getTime() + 1, text: "Item 2", completed: false },
-          { id: new Date().getTime() + 2, text: "Item 3", completed: true },
-        ],
+        todo: {
+          id: new Date().getTime(),
+          text: "Learn testing with vue",
+          completed: false,
+        },
       },
     });
 
-    expect(wrapper.findAll(".todo")).toHaveLength(3);
+    expect(wrapper.text()).toContain("Learn testing with vue");
   });
 
-  it("renders notice message when todoList is empty", () => {
+  it("should mark completed todo", async () => {
     const wrapper = mount(TodoListItem, {
       props: {
-        todoList: [],
+        todo: {
+          id: new Date().getTime(),
+          text: "Procrastinate to learn React",
+          completed: true,
+        },
       },
     });
 
-    expect(wrapper.find(".todo-list__empty-message").text()).toContain("Congrats. You've completed all your tasks.");
+    expect(wrapper.find(".line-through").exists()).toBe(true);
   });
 
-  it("adds a new todo and cleans input", async () => {
+  it("should emit toggle event when checkbox is clicked", async () => {
     const wrapper = mount(TodoListItem, {
       props: {
-        todoList: [],
+        todo: {
+          id: new Date().getTime(),
+          text: "Procrastinate to learn React",
+          completed: true,
+        },
       },
     });
 
-    await wrapper.get('[name="new_todo"]').setValue("Write a blog post");
-    await wrapper.get("#submitTodo").trigger("click");
-
-    expect(wrapper.get('[name="new_todo"]').element.value).toBe("");
-    expect(wrapper.findAll(".todo")).toHaveLength(1);
+    wrapper.get('[type="checkbox"]').trigger("click");
+    expect(wrapper.emitted("toggle")).toHaveLength(1);
   });
 
-  it("shows error message when adding empty to do", async () => {
+  it("should emit delete event when checkbox is clicked", async () => {
     const wrapper = mount(TodoListItem, {
       props: {
-        todoList: [],
+        todo: {
+          id: new Date().getTime(),
+          text: "Procrastinate to learn React",
+          completed: true,
+        },
       },
     });
 
-    await wrapper.get('[name="new_todo"]').setValue("");
-    await wrapper.get("#submitTodo").trigger("click");
-
-    expect(wrapper.find("#todoErrors").text()).toContain("The field must not be empty");
-    expect(wrapper.findAll(".todo")).toHaveLength(0);
-  });
-
-  it("shows error message when adding repeated to do", async () => {
-    const wrapper = mount(TodoListItem, {
-      props: {
-        todoList: [],
-      },
-    });
-
-    await wrapper.get('[name="new_todo"]').setValue("Learn Vue");
-    await wrapper.get("#submitTodo").trigger("click");
-
-    await wrapper.get('[name="new_todo"]').setValue("Learn Vue");
-    await wrapper.get("#submitTodo").trigger("click");
-
-    expect(wrapper.find("#todoErrors").text()).toContain("That item is already on the list");
-    expect(wrapper.findAll(".todo")).toHaveLength(1);
-  });
-
-  it("deletes todo", async () => {
-    const wrapper = mount(TodoListItem, {
-      props: {
-        todoList: [],
-      },
-    });
-
-    await wrapper.get('[name="new_todo"]').setValue("Learn Vue");
-    await wrapper.get("#submitTodo").trigger("click");
-    expect(wrapper.findAll(".todo")).toHaveLength(1);
-
-    await wrapper.find(".btn--delete__todo").trigger("click");
-    expect(wrapper.findAll(".todo")).toHaveLength(0);
-  });
-
-  it("deletes todo", async () => {
-    const wrapper = mount(TodoListItem, {
-      props: {
-        todoList: [],
-      },
-    });
-
-    await wrapper.get('[name="new_todo"]').setValue("Learn Vue");
-    await wrapper.get("#submitTodo").trigger("click");
-    expect(wrapper.findAll(".todo")).toHaveLength(1);
-
-    await wrapper.find(".btn--delete__todo").trigger("click");
-    expect(wrapper.findAll(".todo")).toHaveLength(0);
+    wrapper.get("button").trigger("click");
+    expect(wrapper.emitted("delete")).toHaveLength(1);
   });
 });
