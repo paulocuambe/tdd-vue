@@ -47,3 +47,8 @@ h6 {
 p {
   font-size: var(--text-md);
 }
+
+.container {
+  width: 90%;
+  margin: 5rem auto;
+}
