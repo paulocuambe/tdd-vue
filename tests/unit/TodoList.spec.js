@@ -35,10 +35,12 @@ describe("TodoList.vue", () => {
       },
     });
 
-    await wrapper.get("[data-testid='inputNewTodo']").setValue("Write a blog post");
+    const newTodo = wrapper.get("[data-testid='inputNewTodo']");
+
+    await newTodo.setValue("Write a blog post");
     await wrapper.get("[data-testid='submitNewTodo']").trigger("click");
 
-    expect(wrapper.get("[data-testid='inputNewTodo']").element.value).toBe("");
+    expect(newTodo.element.value).toBe("");
     expect(wrapper.findAll("[data-testid='todoItem']")).toHaveLength(1);
   });
 
@@ -63,11 +65,14 @@ describe("TodoList.vue", () => {
       },
     });
 
-    await wrapper.get("[data-testid='inputNewTodo']").setValue("Learn Vue");
-    await wrapper.get("[data-testid='submitNewTodo']").trigger("click");
+    const inputNewTodo = wrapper.get("[data-testid='inputNewTodo']");
+    const btnSubmitNewTodo = wrapper.get("[data-testid='submitNewTodo']");
 
-    await wrapper.get("[data-testid='inputNewTodo']").setValue("Learn Vue");
-    await wrapper.get("[data-testid='submitNewTodo']").trigger("click");
+    await inputNewTodo.setValue("Learn Vue");
+    await btnSubmitNewTodo.trigger("click");
+
+    await inputNewTodo.setValue("Learn Vue");
+    await btnSubmitNewTodo.trigger("click");
 
     expect(wrapper.find("[data-testid='inputNewTodoErrors']").text()).toContain("That item is already on the list");
     expect(wrapper.findAll("[data-testid='todoItem']")).toHaveLength(1);
