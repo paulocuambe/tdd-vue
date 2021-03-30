@@ -1,10 +1,10 @@
 <template>
   <form @submit.prevent="handleSubmit()">
-    <input type="text" name="new_todo" v-model="newTodo" />
-    <button type="submit" @click.prevent="handleSubmit()" id="submitTodo">Add</button>
+    <input type="text" data-testid="inputNewTodo" v-model="newTodo" />
+    <button data-testid="submitNewTodo" type="submit" @click.prevent="handleSubmit()">Add</button>
   </form>
 
-  <div v-if="errors.length > 0" id="todoErrors">
+  <div v-if="errors.length > 0" data-testid="inputNewTodoErrors">
     <p v-for="(error, index) in errors" :key="index">{{ error }}</p>
   </div>
 
@@ -18,7 +18,7 @@
     />
   </div>
 
-  <h2 v-else class="todo-list__empty-message">Congrats. You've completed all your tasks.</h2>
+  <h2 data-testid="todoListEmptyMessage" v-else>Congrats. You've completed all your tasks.</h2>
 </template>
 
 <script>

@@ -13,7 +13,7 @@ describe("TodoItem.vue", () => {
       },
     });
 
-    expect(wrapper.text()).toContain("Learn testing with vue");
+    expect(wrapper.find("[data-testid='todoText']").text()).toContain("Learn testing with vue");
   });
 
   it("should mark completed todo", async () => {
@@ -27,7 +27,7 @@ describe("TodoItem.vue", () => {
       },
     });
 
-    expect(wrapper.find(".line-through").exists()).toBe(true);
+    expect(wrapper.find("[data-testid='todoText']").classes()).toContain("line-through");
   });
 
   it("should emit toggle event when checkbox is clicked", async () => {
@@ -41,7 +41,7 @@ describe("TodoItem.vue", () => {
       },
     });
 
-    wrapper.get('[type="checkbox"]').trigger("click");
+    wrapper.get('[data-testid="todoCheckBox"]').trigger("click");
     expect(wrapper.emitted("toggle")).toHaveLength(1);
   });
 
@@ -56,7 +56,7 @@ describe("TodoItem.vue", () => {
       },
     });
 
-    wrapper.get("button").trigger("click");
+    wrapper.get("[data-testid='todoDeleteBtn']").trigger("click");
     expect(wrapper.emitted("delete")).toHaveLength(1);
   });
 });

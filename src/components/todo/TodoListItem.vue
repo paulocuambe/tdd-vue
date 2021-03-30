@@ -1,8 +1,8 @@
 <template>
-  <div class="todo">
-    <input type="checkbox" v-model="todoItem.completed" @click="$emit('toggle')" />
-    <p :class="{ 'line-through': todoItem.completed }">{{ todoItem.text }}</p>
-    <button @click="$emit('delete')" class="btn--delete__todo">Delete</button>
+  <div data-testid="todoItem">
+    <input type="checkbox" data-testid="todoCheckBox" v-model="todoItem.completed" @click="$emit('toggle')" />
+    <p data-testid="todoText" :class="{ 'line-through': todoItem.completed }">{{ todoItem.text }}</p>
+    <button data-testid="todoDeleteBtn" @click="$emit('delete')">Delete</button>
   </div>
 </template>
 
