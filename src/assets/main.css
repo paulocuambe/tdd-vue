@@ -18,6 +18,7 @@ html {
 
 body {
   font-family: "Poppins", sans-serif;
+  line-height: 1.75;
 }
 
 h1 {
@@ -51,4 +52,8 @@ p {
 .container {
   width: 90%;
   margin: 5rem auto;
+}
+
+.through {
+  text-decoration: line-through;
 }

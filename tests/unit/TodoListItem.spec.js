@@ -27,7 +27,7 @@ describe("TodoItem.vue", () => {
       },
     });
 
-    expect(wrapper.find("[data-testid='todoText']").classes()).toContain("line-through");
+    expect(wrapper.find("[data-testid='todoText']").classes()).toContain("through");
   });
 
   it("should emit toggle event when checkbox is clicked", async () => {
