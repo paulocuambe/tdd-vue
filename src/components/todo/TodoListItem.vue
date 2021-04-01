@@ -1,7 +1,13 @@
 <template>
-  <div data-testid="todoItem">
-    <input type="checkbox" data-testid="todoCheckBox" v-model="todoItem.completed" @click="$emit('toggle')" />
-    <p data-testid="todoText" :class="{ 'through': todoItem.completed }">{{ todoItem.text }}</p>
+  <div class="todo" data-testid="todoItem">
+    <input
+      type="checkbox"
+      class="todo__checkbox"
+      data-testid="todoCheckBox"
+      v-model="todoItem.completed"
+      @click="$emit('toggle')"
+    />
+    <p data-testid="todoText" class="todo__text" :class="{ through: todoItem.completed }">{{ todoItem.text }}</p>
     <button data-testid="todoDeleteBtn" @click="$emit('delete')">Delete</button>
   </div>
 </template>
@@ -26,3 +32,21 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.todo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #161615;
+}
+
+/* flex: [flex-grow] [flex-shrink] [flex-basis]; */
+.todo__text {
+  flex: 1 1 auto;
+}
+
+.todo__checkbox {
+  margin-right: 1em;
+}
+</style>
