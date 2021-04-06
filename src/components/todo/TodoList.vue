@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="handleSubmit()">
-    <input type="text" data-testid="inputNewTodo" v-model="newTodo" />
+    <base-input data-testid="inputNewTodo" v-model:text="newTodo" />
     <button data-testid="submitNewTodo" type="submit" @click.prevent="handleSubmit()">Add</button>
   </form>
 
@@ -24,16 +24,17 @@
 <script>
 import { reactive, toRefs } from "vue";
 
+import BaseInput from "@/components/base/BaseInput.vue";
 import TodoListItem from "./TodoListItem.vue";
 
 export default {
+  components: { TodoListItem, BaseInput },
   props: {
     todoList: {
       type: Array,
       require: true,
     },
   },
-  components: { TodoListItem },
   setup(props) {
     const state = reactive({
       newTodo: "",
