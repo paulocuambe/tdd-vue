@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="handleSubmit()">
     <base-input data-testid="inputNewTodo" v-model:text="newTodo" />
-    <button data-testid="submitNewTodo" type="submit" @click.prevent="handleSubmit()">Add</button>
+    <base-button type="submit" variant="primary" data-testid="submitNewTodo">Add</base-button>
   </form>
 
   <div v-if="errors.length > 0" data-testid="inputNewTodoErrors">
@@ -25,10 +25,11 @@
 import { reactive, toRefs } from "vue";
 
 import BaseInput from "@/components/base/BaseInput.vue";
+import BaseButton from "@/components/base/BaseButton.vue";
 import TodoListItem from "./TodoListItem.vue";
 
 export default {
-  components: { TodoListItem, BaseInput },
+  components: { TodoListItem, BaseInput, BaseButton },
   props: {
     todoList: {
       type: Array,

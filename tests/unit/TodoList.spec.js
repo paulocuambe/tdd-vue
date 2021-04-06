@@ -38,7 +38,7 @@ describe("TodoList.vue", () => {
     const newTodo = wrapper.get("[data-testid='inputNewTodo']");
 
     await newTodo.setValue("Write a blog post");
-    await wrapper.get("[data-testid='submitNewTodo']").trigger("click");
+    await wrapper.get("[data-testid='submitNewTodo']").trigger("submit");
 
     expect(newTodo.element.value).toBe("");
     expect(wrapper.findAll("[data-testid='todoItem']")).toHaveLength(1);
@@ -52,7 +52,7 @@ describe("TodoList.vue", () => {
     });
 
     await wrapper.get("[data-testid='inputNewTodo']").setValue("");
-    await wrapper.get("[data-testid='submitNewTodo']").trigger("click");
+    await wrapper.get("[data-testid='submitNewTodo']").trigger("submit");
 
     expect(wrapper.find("[data-testid='inputNewTodoErrors']").text()).toContain("The field must not be empty");
     expect(wrapper.findAll("[data-testid='todoItem']")).toHaveLength(0);
@@ -69,10 +69,10 @@ describe("TodoList.vue", () => {
     const btnSubmitNewTodo = wrapper.get("[data-testid='submitNewTodo']");
 
     await inputNewTodo.setValue("Learn Vue");
-    await btnSubmitNewTodo.trigger("click");
+    await btnSubmitNewTodo.trigger("submit");
 
     await inputNewTodo.setValue("Learn Vue");
-    await btnSubmitNewTodo.trigger("click");
+    await btnSubmitNewTodo.trigger("submit");
 
     expect(wrapper.find("[data-testid='inputNewTodoErrors']").text()).toContain("That item is already on the list");
     expect(wrapper.findAll("[data-testid='todoItem']")).toHaveLength(1);
@@ -86,7 +86,7 @@ describe("TodoList.vue", () => {
     });
 
     await wrapper.get("[data-testid='inputNewTodo']").setValue("Learn Vue");
-    await wrapper.get("[data-testid='submitNewTodo']").trigger("click");
+    await wrapper.get("[data-testid='submitNewTodo']").trigger("submit");
     expect(wrapper.findAll("[data-testid='todoItem']")).toHaveLength(1);
 
     await wrapper.find("[data-testid='todoDeleteBtn']").trigger("click");
@@ -101,7 +101,7 @@ describe("TodoList.vue", () => {
     });
 
     await wrapper.get("[data-testid='inputNewTodo']").setValue("Learn Vue");
-    await wrapper.get("[data-testid='submitNewTodo']").trigger("click");
+    await wrapper.get("[data-testid='submitNewTodo']").trigger("submit");
     expect(wrapper.findAll("[data-testid='todoItem']")).toHaveLength(1);
 
     await wrapper.find("[data-testid='todoDeleteBtn']").trigger("click");
