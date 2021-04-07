@@ -10,6 +10,13 @@
   --text-md: 1rem;
   --text-sm: 0.8rem;
   --text-xs: 0.64rem;
+
+  --color-black: hsl(228, 12%, 8%);
+  --color-darkblue: hsl(212, 61%, 6%);
+  --color-gray: hsl(180, 7%, 76%);
+  --color-white: hsl(0, 0%, 100%);
+  --color-red: hsl(0, 70%, 42%);
+  --color-yellow: hsl(53, 100%, 65%);
 }
 
 html {

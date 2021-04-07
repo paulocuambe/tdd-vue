@@ -30,17 +30,18 @@ export default {
 .btn {
   width: 100%;
   padding: 0.35rem 0.75rem;
+  border: 2px solid var(--color-black);
 }
 
 .btn--primary,
 .btn--secondary:hover {
-  color: white;
-  background-color: #212529;
+  color: var(--color-white);
+  background-color: var(--color-black);
 }
 
 .btn--secondary,
 .btn--primary:hover {
-  color: #212529;
-  background-color: #ced4da;
+  color: var(--color-black);
+  background-color: var(--color-white);
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="handleSubmit()">
     <base-input data-testid="inputNewTodo" v-model:text="newTodo" />
-    <base-button type="submit" variant="primary" data-testid="submitNewTodo">Add</base-button>
+    <base-button type="submit" data-testid="submitNewTodo">Add</base-button>
   </form>
 
   <div v-if="errors.length > 0" data-testid="inputNewTodoErrors">

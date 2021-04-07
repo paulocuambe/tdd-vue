@@ -24,7 +24,7 @@ export default {
 <style scoped>
 .text-input {
   width: 100%;
-  border: 2px solid black;
+  border: 2px solid var(--color-black);
   padding: 0.35rem 0.75rem;
 }
 </style>
