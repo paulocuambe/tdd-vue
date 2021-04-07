@@ -1,7 +1,7 @@
 <template>
-  <form @submit.prevent="handleSubmit()">
+  <form class="todo-form" @submit.prevent="handleSubmit()">
     <base-input data-testid="inputNewTodo" v-model:text="newTodo" />
-    <base-button type="submit" data-testid="submitNewTodo">Add</base-button>
+    <base-button class="todo-form__submit-btn" type="submit" data-testid="submitNewTodo">Add a new todo</base-button>
   </form>
 
   <div v-if="errors.length > 0" data-testid="inputNewTodoErrors">
@@ -87,3 +87,14 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.todo-form {
+  display: flex;
+}
+
+.todo-form__submit-btn {
+  flex: 0 1 14rem;
+  text-align: center;
+}
+</style>
