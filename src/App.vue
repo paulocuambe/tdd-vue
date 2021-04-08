@@ -1,7 +1,21 @@
 <template>
-  <main class="container">
-    <router-link to="/">Home</router-link>
-    <router-link :to="{ name: 'TodoApp' }">Todo App</router-link>
+  <the-header />
+  <main class="container main-content">
     <router-view />
   </main>
 </template>
+
+<script>
+import TheHeader from "@/components/TheHeader.vue";
+
+export default {
+  components: { TheHeader },
+};
+</script>
+
+<style scoped>
+.main-content {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+</style>
