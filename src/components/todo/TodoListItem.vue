@@ -1,7 +1,6 @@
 <template>
   <div class="todo" data-testid="todoItem">
-    <input
-      type="checkbox"
+    <base-checkbox
       class="todo__checkbox"
       data-testid="todoCheckBox"
       v-model="todoItem.completed"
@@ -13,9 +12,11 @@
 </template>
 
 <script>
+import BaseCheckbox from "@/components/base/BaseCheckbox.vue";
 import { toRefs } from "vue";
 
 export default {
+  components: { BaseCheckbox },
   props: {
     todo: {
       type: Object,
