@@ -7,16 +7,17 @@
       @click="$emit('toggle')"
     />
     <p data-testid="todoText" class="todo__text" :class="{ through: todoItem.completed }">{{ todoItem.text }}</p>
-    <button data-testid="todoDeleteBtn" class="todo__btn" @click="$emit('delete')">Delete</button>
+    <base-button size="sm" data-testid="todoDeleteBtn" class="todo__btn" @click="$emit('delete')">Delete</base-button>
   </div>
 </template>
 
 <script>
 import BaseCheckbox from "@/components/base/BaseCheckbox.vue";
+import BaseButton from "@/components/base/BaseButton.vue";
 import { toRefs } from "vue";
 
 export default {
-  components: { BaseCheckbox },
+  components: { BaseCheckbox, BaseButton },
   props: {
     todo: {
       type: Object,
@@ -40,6 +41,7 @@ export default {
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #161615;
+  margin-top: 1rem;
 }
 
 /* flex: [flex-grow] [flex-shrink] [flex-basis]; */
@@ -52,6 +54,7 @@ export default {
 }
 
 .todo__btn {
+  flex: 0 1 1rem;
   margin-left: 1em;
 }
 </style>
