@@ -7,7 +7,7 @@
       @click="$emit('toggle')"
     />
     <p data-testid="todoText" class="todo__text" :class="{ through: todoItem.completed }">{{ todoItem.text }}</p>
-    <base-button size="sm" data-testid="todoDeleteBtn" class="todo__btn" @click="$emit('delete')">Delete</base-button>
+    <base-button size="xs" data-testid="todoDeleteBtn" class="todo__btn" @click="$emit('delete')">Delete</base-button>
   </div>
 </template>
 
@@ -40,8 +40,9 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #161615;
-  margin-top: 1rem;
+  border-bottom: 2px dashed var(--color-gray);
+  padding-bottom: 0.5rem;
+  margin-top: 1.5rem;
 }
 
 /* flex: [flex-grow] [flex-shrink] [flex-basis]; */
