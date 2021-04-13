@@ -1,9 +1,9 @@
 <template>
   <form class="todo-form" @submit.prevent="handleSubmit()">
     <base-input data-testid="inputNewTodo" v-model:text="newTodo" />
-    <base-button class="todo-form__submit-btn" variant="primary" type="submit" data-testid="submitNewTodo"
-      >Add a new todo</base-button
-    >
+    <base-button class="todo-form__submit-btn" variant="primary" type="submit" data-testid="submitNewTodo">
+      Add a new todo
+    </base-button>
   </form>
 
   <div v-if="errors.length > 0" data-testid="inputNewTodoErrors">
@@ -20,18 +20,19 @@
     />
   </div>
 
-  <h2 data-testid="todoListEmptyMessage" v-else>Congrats. You've completed all your tasks.</h2>
+  <completed-todo-state v-else data-testid="todoListEmptyMessage" class="error__component" />
 </template>
 
 <script>
 import { reactive, toRefs } from "vue";
 
+import CompletedTodoState from "@/components/state/CompletedTodoState.vue";
 import BaseInput from "@/components/base/BaseInput.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 import TodoListItem from "./TodoListItem.vue";
 
 export default {
-  components: { TodoListItem, BaseInput, BaseButton },
+  components: { TodoListItem, BaseInput, BaseButton, CompletedTodoState },
   props: {
     todoList: {
       type: Array,
@@ -100,7 +101,10 @@ export default {
 }
 
 .error__message {
-  font-weight: 700;
   color: var(--color-red);
+}
+
+.error__component {
+  margin-top: 4rem;
 }
 </style>
