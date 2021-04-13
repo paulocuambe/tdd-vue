@@ -1,26 +1,25 @@
 <template>
-  <form @submit.prevent="handleSubmit()">
-    <base-text-area data-testid="inputNewTodo" v-model:text="newTodo" rows="3" />
-    <div v-if="errors.length > 0" data-testid="inputNewTodoErrors">
-      <p class="error__message" v-for="(error, index) in errors" :key="index">{{ error }}</p>
+  <div class="todo-app">
+    <form @submit.prevent="handleSubmit()">
+      <base-text-area data-testid="inputNewTodo" v-model:text="newTodo" rows="3" />
+      <div v-if="errors.length > 0" data-testid="inputNewTodoErrors">
+        <p class="error__message" v-for="(error, index) in errors" :key="index">{{ error }}</p>
+      </div>
+      <base-button class="todo-form__submit-btn" variant="primary" type="submit" data-testid="submitNewTodo">
+        Add a new todo
+      </base-button>
+    </form>
+    <div v-if="todos.length > 0">
+      <todo-list-item
+        v-for="todo in todos"
+        :key="todo.id"
+        :todo="todo"
+        @toggle="handleToggleTodo(todo.id)"
+        @delete="handleDeleteTodo(todo.id)"
+      />
     </div>
-    <base-button class="todo-form__submit-btn" variant="primary" type="submit" data-testid="submitNewTodo">
-      Add a new todo
-    </base-button>
-  </form>
-
-
-  <div v-if="todos.length > 0">
-    <todo-list-item
-      v-for="todo in todos"
-      :key="todo.id"
-      :todo="todo"
-      @toggle="handleToggleTodo(todo.id)"
-      @delete="handleDeleteTodo(todo.id)"
-    />
+    <completed-todo-state v-else data-testid="todoListEmptyMessage" class="error__component" />
   </div>
-
-  <completed-todo-state v-else data-testid="todoListEmptyMessage" class="error__component" />
 </template>
 
 <script>
@@ -92,8 +91,13 @@ export default {
 </script>
 
 <style scoped>
+.todo-app {
+  width: 70%;
+}
+
 .todo-form__submit-btn {
   margin-top: 0.5rem;
+  width: 13rem;
 }
 
 .error__message {
