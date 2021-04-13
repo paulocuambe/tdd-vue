@@ -7,7 +7,7 @@
   </form>
 
   <div v-if="errors.length > 0" data-testid="inputNewTodoErrors">
-    <p v-for="(error, index) in errors" :key="index">{{ error }}</p>
+    <p class="error__message" v-for="(error, index) in errors" :key="index">{{ error }}</p>
   </div>
 
   <div v-if="todos.length > 0">
@@ -97,5 +97,10 @@ export default {
 
 .todo-form__submit-btn {
   flex: 0 1 14rem;
+}
+
+.error__message {
+  font-weight: 700;
+  color: var(--color-red);
 }
 </style>

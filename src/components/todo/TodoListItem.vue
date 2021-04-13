@@ -7,7 +7,7 @@
       @click="$emit('toggle')"
     />
     <p data-testid="todoText" class="todo__text" :class="{ through: todoItem.completed }">{{ todoItem.text }}</p>
-    <base-button size="xs" data-testid="todoDeleteBtn" class="todo__btn" @click="$emit('delete')">Delete</base-button>
+    <base-button size="sm" data-testid="todoDeleteBtn" class="todo__btn" @click="$emit('delete')">Delete</base-button>
   </div>
 </template>
 
