@@ -1,14 +1,14 @@
 <template>
   <form @submit.prevent="handleSubmit()">
     <base-text-area data-testid="inputNewTodo" v-model:text="newTodo" rows="3" />
+    <div v-if="errors.length > 0" data-testid="inputNewTodoErrors">
+      <p class="error__message" v-for="(error, index) in errors" :key="index">{{ error }}</p>
+    </div>
     <base-button class="todo-form__submit-btn" variant="primary" type="submit" data-testid="submitNewTodo">
       Add a new todo
     </base-button>
   </form>
 
-  <div v-if="errors.length > 0" data-testid="inputNewTodoErrors">
-    <p class="error__message" v-for="(error, index) in errors" :key="index">{ { error }}</p>
-  </div>
 
   <div v-if="todos.length > 0">
     <todo-list-item
@@ -94,7 +94,6 @@ export default {
 <style scoped>
 .todo-form__submit-btn {
   margin-top: 0.5rem;
-  width: 13rem;
 }
 
 .error__message {
