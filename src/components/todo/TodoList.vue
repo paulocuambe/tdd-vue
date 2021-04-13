@@ -1,13 +1,13 @@
 <template>
-  <form class="todo-form" @submit.prevent="handleSubmit()">
-    <base-input data-testid="inputNewTodo" v-model:text="newTodo" />
+  <form @submit.prevent="handleSubmit()">
+    <base-text-area data-testid="inputNewTodo" v-model:text="newTodo" rows="3" />
     <base-button class="todo-form__submit-btn" variant="primary" type="submit" data-testid="submitNewTodo">
       Add a new todo
     </base-button>
   </form>
 
   <div v-if="errors.length > 0" data-testid="inputNewTodoErrors">
-    <p class="error__message" v-for="(error, index) in errors" :key="index">{{ error }}</p>
+    <p class="error__message" v-for="(error, index) in errors" :key="index">{ { error }}</p>
   </div>
 
   <div v-if="todos.length > 0">
@@ -27,12 +27,12 @@
 import { reactive, toRefs } from "vue";
 
 import CompletedTodoState from "@/components/state/CompletedTodoState.vue";
-import BaseInput from "@/components/base/BaseInput.vue";
+import BaseTextArea from "@/components/base/BaseTextArea.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 import TodoListItem from "./TodoListItem.vue";
 
 export default {
-  components: { TodoListItem, BaseInput, BaseButton, CompletedTodoState },
+  components: { TodoListItem, BaseTextArea, BaseButton, CompletedTodoState },
   props: {
     todoList: {
       type: Array,
@@ -92,12 +92,9 @@ export default {
 </script>
 
 <style scoped>
-.todo-form {
-  display: flex;
-}
-
 .todo-form__submit-btn {
-  flex: 0 1 14rem;
+  margin-top: 0.5rem;
+  width: 13rem;
 }
 
 .error__message {

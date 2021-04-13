@@ -52,6 +52,7 @@ export default {
 
 .todo__text {
   flex: 1 1 auto;
+  white-space: pre-line;
 }
 
 .todo__btn {
