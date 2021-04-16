@@ -62,10 +62,30 @@ p {
 }
 
 .container {
-  width: 90%;
+  width: 92%;
   margin: 0 auto;
 }
 
 .through {
   text-decoration: line-through;
+}
+
+/** Media Queries Breapoints
+  * --media-smatphones-sm: 320px;
+  * --media-smatphones-md: 480px;
+  * --media-tablets-portrait: 600px;
+  * --media-tablets-landscape: 801px;
+  * --media-laptops-sm: 1025px;
+  * --media-laptops-md: 1281px; 
+*/
+@media screen and (min-width: 801px) {
+  .container {
+    width: 90%;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .container {
+    width: 960px;
+  }
 }
