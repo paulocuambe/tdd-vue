@@ -27,7 +27,10 @@
 </template>
 
 <script>
-import { reactive, toRefs } from "vue";
+import { reactive, toRefs, watchEffect } from "vue";
+import { useStore } from "vuex";
+
+import * as mutationTypes from "../../store/mutation-types";
 
 import CompletedTodoState from "@/components/state/CompletedTodoState.vue";
 import BaseTextArea from "@/components/base/BaseTextArea.vue";
@@ -39,14 +42,26 @@ export default {
   props: {
     todoList: {
       type: Array,
-      require: true,
+      default: () => [],
+      require: false,
     },
   },
+
   setup(props) {
     const state = reactive({
       newTodo: "",
       todos: props.todoList,
       errors: [],
+    });
+
+    const store = useStore();
+    if (state.todos.length > 0) {
+      store.commit(mutationTypes.EMPTY_TODO_LIST);
+      store.commit(mutationTypes.ADD_MULTIPLE_TODOS, state.todos);
+    }
+
+    watchEffect(() => {
+      state.todos = store.state.todo.todoList;
     });
 
     const validateInput = () => {
@@ -62,26 +77,22 @@ export default {
     const handleSubmit = () => {
       validateInput();
       if (state.errors.length === 0) {
-        state.todos.push({
-          id: new Date().getTime() + Math.ceil(Math.random() * 100),
+        store.commit(mutationTypes.ADD_TODO, {
+          id: new Date().getTime(),
           text: state.newTodo.trim(),
           completed: false,
         });
+
         state.newTodo = "";
       }
     };
 
     const handleDeleteTodo = (id) => {
-      state.todos = state.todos.filter((todo) => todo.id !== id);
+      store.commit(mutationTypes.DELETE_TODO, id);
     };
 
     const handleToggleTodo = (id) => {
-      state.todos = state.todos.map((todo) => {
-        if (todo.id === id) {
-          todo.completed = !todo.completed;
-        }
-        return todo;
-      });
+      store.commit(mutationTypes.TOGGLE_TODO, id);
     };
 
     return {
