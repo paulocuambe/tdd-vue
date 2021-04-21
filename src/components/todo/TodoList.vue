@@ -39,26 +39,13 @@ import TodoListItem from "./TodoListItem.vue";
 
 export default {
   components: { TodoListItem, BaseTextArea, BaseButton, CompletedTodoState },
-  props: {
-    todoList: {
-      type: Array,
-      default: () => [],
-      require: false,
-    },
-  },
-
-  setup(props) {
+  setup() {
+    const store = useStore();
     const state = reactive({
       newTodo: "",
-      todos: props.todoList,
+      todos: [],
       errors: [],
     });
-
-    const store = useStore();
-    if (state.todos.length > 0) {
-      store.commit(mutationTypes.EMPTY_TODO_LIST);
-      store.commit(mutationTypes.ADD_MULTIPLE_TODOS, state.todos);
-    }
 
     watchEffect(() => {
       state.todos = store.state.todo.todoList;
