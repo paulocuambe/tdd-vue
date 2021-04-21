@@ -1,16 +1,37 @@
 import { mount } from "@vue/test-utils";
+import { createStore } from "vuex";
 import TodoList from "@/components/todo/TodoList.vue";
+import { mutations } from "../../src/store/modules/todoStore";
+
+function mockStore(state) {
+  return createStore({
+    modules: {
+      todo: {
+        state: () => state,
+        mutations,
+      },
+    },
+  });
+}
+
+function globalPlugins({ state }) {
+  return {
+    plugins: [mockStore(state)],
+  };
+}
 
 describe("TodoList.vue", () => {
   it("renders a list of todos", () => {
     const wrapper = mount(TodoList, {
-      props: {
-        todoList: [
-          { id: new Date().getTime(), text: "Item 1", completed: false },
-          { id: new Date().getTime() + 1, text: "Item 2", completed: false },
-          { id: new Date().getTime() + 2, text: "Item 3", completed: true },
-        ],
-      },
+      global: globalPlugins({
+        state: {
+          todoList: [
+            { id: new Date().getTime(), text: "Item 1", completed: false },
+            { id: new Date().getTime() + 1, text: "Item 2", completed: false },
+            { id: new Date().getTime() + 2, text: "Item 3", completed: true },
+          ],
+        },
+      }),
     });
 
     expect(wrapper.findAll("[data-testid='todoItem']")).toHaveLength(3);
@@ -18,9 +39,11 @@ describe("TodoList.vue", () => {
 
   it("renders notice message when todoList is empty", () => {
     const wrapper = mount(TodoList, {
-      props: {
-        todoList: [],
-      },
+      global: globalPlugins({
+        state: {
+          todoList: [],
+        },
+      }),
     });
 
     expect(wrapper.find("[data-testid='todoListEmptyMessage']").text()).toContain(
@@ -30,9 +53,11 @@ describe("TodoList.vue", () => {
 
   it("adds a new todo and cleans input", async () => {
     const wrapper = mount(TodoList, {
-      props: {
-        todoList: [],
-      },
+      global: globalPlugins({
+        state: {
+          todoList: [],
+        },
+      }),
     });
 
     const newTodo = wrapper.get("[data-testid='inputNewTodo']");
@@ -46,9 +71,11 @@ describe("TodoList.vue", () => {
 
   it("shows error message when adding empty to do", async () => {
     const wrapper = mount(TodoList, {
-      props: {
-        todoList: [],
-      },
+      global: globalPlugins({
+        state: {
+          todoList: [],
+        },
+      }),
     });
 
     await wrapper.get("[data-testid='inputNewTodo']").setValue("");
@@ -60,9 +87,11 @@ describe("TodoList.vue", () => {
 
   it("shows error message when adding repeated to do", async () => {
     const wrapper = mount(TodoList, {
-      props: {
-        todoList: [],
-      },
+      global: globalPlugins({
+        state: {
+          todoList: [],
+        },
+      }),
     });
 
     const inputNewTodo = wrapper.get("[data-testid='inputNewTodo']");
@@ -80,9 +109,11 @@ describe("TodoList.vue", () => {
 
   it("deletes todo", async () => {
     const wrapper = mount(TodoList, {
-      props: {
-        todoList: [],
-      },
+      global: globalPlugins({
+        state: {
+          todoList: [],
+        },
+      }),
     });
 
     await wrapper.get("[data-testid='inputNewTodo']").setValue("Learn Vue");
@@ -95,9 +126,11 @@ describe("TodoList.vue", () => {
 
   it("deletes todo", async () => {
     const wrapper = mount(TodoList, {
-      props: {
-        todoList: [],
-      },
+      global: globalPlugins({
+        state: {
+          todoList: [],
+        },
+      }),
     });
 
     await wrapper.get("[data-testid='inputNewTodo']").setValue("Learn Vue");
